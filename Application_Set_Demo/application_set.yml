@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app_list_demo
+  namespace: argocd
+
+spec: 
+  generators:
+    - list:
+        elements:
+          - app: apache
+            path: ApacheK8S
+
+          - app: nginx
+            path: NginxK8S
+
+  template:
+    metadata:
+      name: '{{app}}-list'
+
+    spec: 
+      project: default
+      source: 
+        repoURL: https://github.com/Aswin-Shine/argocdDemodd.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://172.31.23.114:33893
+        namespace: argocd
+
+      syncPolicy:
+        automated:
+          prune: true
+          
+
+      
