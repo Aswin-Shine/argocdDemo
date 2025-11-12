@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apache-app
+  namespace: argocd
+
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Aswin-Shine/argocdDemodd.git
+    targetRevision: main
+    path: ApacheK8S
+
+  destination:
+    namespace: argocd
+    server: https://172.31.23.114:33893
+
+  syncPolicy:
+    automated:
+      prune: true
+      
+    
