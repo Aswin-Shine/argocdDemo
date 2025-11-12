@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: root-app
+  namespace: argocd
+
+spec: 
+  project: default
+  sources:
+    - repoURL: https://github.com/Aswin-Shine/argocdDemo.git 
+    targetRevision: main
+    path: ApacheK8S
+
+    - repoURL: https://github.com/Aswin-Shine/argocdDemo.git 
+    targetRevision: main
+    path: NginxK8S
+
+    - repoURL: https://github.com/Aswin-Shine/argocdDemo.git 
+    targetRevision: main
+    path: Online_Shop_K8S
+
+  destination:
+    server:
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+     
+  
